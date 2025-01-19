@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snacklink URL Shortener</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Snacklink URL Shortener</h1>
+        <form id="urlForm">
+            <label for="urlInput">Enter URL to shorten:</label>
+            <input type="text" id="urlInput" placeholder="Enter a URL" required>
+            <button type="submit">Shorten URL</button>
+        </form>
+        <div id="result" class="hidden">
+            <p><strong>Shortened URL:</strong></p>
+            <a id="shortenedUrl" href="#" target="_blank"></a>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/btoa/1.2.1/btoa.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
