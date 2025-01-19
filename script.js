@@ -5,7 +5,7 @@ const shortenedLink = document.getElementById('shortenedLink');
 
 // Your API Key from SnackLink.id
 const API_KEY = 'b906339219a9e278735328dc06c20e99434da67e';
-const API_URL = 'https://snacklink.id/api';
+const API_URL = 'https://moneyblink.com/';
 
 shortenForm.addEventListener('submit', async (event) => {
     event.preventDefault();
