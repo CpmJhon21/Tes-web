@@ -16,7 +16,7 @@ function app_get_host_name(e) {
 }
 
 // SnackLink API URL and API Key
-var go_url = 'https://moneyblink.com/';
+var go_url = 'https://depositfiles.com/';
 var api = 'b906339219a9e278735328dc06c20e99434da67e';
 
 // Handle form submission
