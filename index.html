@@ -9,24 +9,34 @@
 <body>
     <div class="container">
         <h1>SnackLink Integration</h1>
-        <p>Masukkan URL yang ingin dipersingkat:</p>
+        <p>Gunakan tombol di bawah untuk mempersingkat URL:</p>
 
-        <form id="shortenForm">
-            <input type="url" id="longUrl" placeholder="Masukkan URL Anda di sini" required>
-            <button type="submit">Perpendek</button>
-        </form>
+        <button id="generateLink">Perpendek URL</button>
 
         <div id="result" class="hidden">
             <h2>Hasil:</h2>
-            <a id="shortenedLink" href="#" target="_blank"></a>
+            <a id="shortenedLink" href="#" target="_blank">Link Pendek</a>
         </div>
     </div>
 
     <script type="text/javascript">
-        var go_url = 'https://moneyblink.com/'; // URL akan diisi dari input
-        var api = 'b906339219a9e278735328dc06c20e99434da67e'; // Ganti dengan API key SnackLink Anda
+        var go_url = 'https://moneyblink.com/'; // URL yang akan diperpendek
+        var api = 'b906339219a9e278735328dc06c20e99434da67e'; // API Key Anda
+        var { app_domains } = { domains }; // Konfigurasi tambahan (jika diperlukan)
     </script>
     <script src="//snacklink.id/js/web-script.js"></script>
-    <script src="script.js"></script>
+    <script>
+        document.getElementById('generateLink').addEventListener('click', function () {
+            const resultDiv = document.getElementById('result');
+            const shortenedLink = document.getElementById('shortenedLink');
+
+            // Gunakan variabel go_url sebagai hasil link pendek
+            shortenedLink.href = go_url; 
+            shortenedLink.textContent = go_url;
+
+            // Tampilkan hasil
+            resultDiv.classList.remove('hidden');
+        });
+    </script>
 </body>
 </html>
