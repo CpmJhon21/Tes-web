@@ -3,36 +3,30 @@ const longUrlInput = document.getElementById('longUrl');
 const resultDiv = document.getElementById('result');
 const shortenedLink = document.getElementById('shortenedLink');
 
-// Your API Key from SnackLink.id
-const API_KEY = 'b906339219a9e278735328dc06c20e99434da67e';
-const API_URL = 'https://moneyblink.com/';
-
-shortenForm.addEventListener('submit', async (event) => {
-    event.preventDefault();
+// Event listener untuk form submit
+shortenForm.addEventListener('submit', function (e) {
+    e.preventDefault();
     const longUrl = longUrlInput.value;
 
-    try {
-        const response = await fetch(API_URL, {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: `Bearer ${API_KEY}`
-            },
-            body: JSON.stringify({ longUrl })
-        });
-
-        if (!response.ok) {
-            throw new Error('Failed to shorten URL');
-        }
-
-        const data = await response.json();
-        const shortUrl = data.shortUrl;
-
-        // Display the shortened URL
-        shortenedLink.href = shortUrl;
-        shortenedLink.textContent = shortUrl;
-        resultDiv.classList.remove('hidden');
-    } catch (error) {
-        alert('Error: ' + error.message);
+    if (!longUrl) {
+        alert('Mohon masukkan URL yang valid.');
+        return;
     }
+
+    // Masukkan URL ke dalam variabel go_url
+    go_url = longUrl;
+
+    // Script SnackLink (web-script.js) akan otomatis memproses URL
+    processSnackLink(go_url);
 });
+
+// Fungsi untuk menampilkan hasil SnackLink
+function processSnackLink(url) {
+    if (url) {
+        shortenedLink.href = go_url;
+        shortenedLink.textContent = go_url;
+        resultDiv.classList.remove('hidden');
+    } else {
+        alert('Gagal memproses URL. Coba lagi.');
+    }
+}
