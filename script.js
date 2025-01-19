@@ -39,7 +39,7 @@ document.getElementById('urlForm').addEventListener('submit', async function(eve
     if (hostName) {
         // Create the shortened URL using the Snacklink API
         const encodedUrl = app_base64_encode(urlInput);
-        const apiUrl = `${go_url}shorten?api=${encodeURIComponent(api)}&url=${encodedUrl}&type=1`;
+        const apiUrl = `${go_url}shorten?api=${encodeURIComponent(api)}&url=${encodedUrl}`;
 
         // Set the result and show it
         shortenedUrl.href = apiUrl;
