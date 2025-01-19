@@ -1,15 +1,11 @@
-// SnackLink API URL dan API Key
-var go_url = 'https://moneyblink.com/';
-var api = 'b906339219a9e278735328dc06c20e99434da67e';
-
-// Fungsi untuk Base64 encode (menerima URL dan mengubahnya menjadi Base64)
+// Base64 encode function (as per the provided code)
 function app_base64_encode(e) {
     return btoa(encodeURIComponent(e).replace(/%([0-9A-F]{2})/g, function(e, n) {
         return String.fromCharCode("0x" + n);
     }));
 }
 
-// Fungsi untuk mendapatkan host name dari URL
+// Function to get host name from URL
 function app_get_host_name(e) {
     if (e === null || e === "") {
         return "";
@@ -19,51 +15,36 @@ function app_get_host_name(e) {
     return a.hostname;
 }
 
-// Fungsi untuk memperpendek URL menggunakan SnackLink API
-async function shortenUrl(url) {
-    const encodedUrl = app_base64_encode(url);  // Mengencode URL menjadi Base64
-    const apiUrl = `${go_url}full?api=${encodeURIComponent(api)}&url=${encodedUrl}&type=1`;  // URL API dengan parameter yang diperlukan
+// SnackLink API URL and API Key
+var go_url = 'https://moneyblink.com/';
+var api = 'b906339219a9e278735328dc06c20e99434da67e';
 
-    try {
-        const response = await fetch(apiUrl);  // Mengirim permintaan menggunakan fetch
-        const data = await response.json();
-
-        if (data.success) {
-            return data.shortened_url;  // Jika berhasil, kembalikan URL pendek
-        } else {
-            throw new Error('Failed to shorten URL');
-        }
-    } catch (error) {
-        console.error('Error:', error);
-        alert('Error while shortening URL');
-    }
-}
-
-// Menangani pengiriman form
+// Handle form submission
 document.getElementById('urlForm').addEventListener('submit', async function(event) {
-    event.preventDefault();  // Mencegah form melakukan reload halaman
+    event.preventDefault();
 
     const urlInput = document.getElementById('urlInput').value;
     const resultDiv = document.getElementById('result');
     const shortenedUrl = document.getElementById('shortenedUrl');
 
-    // Cek apakah URL valid
+    // Check if the URL is valid
     if (!urlInput) {
         alert("Please enter a valid URL.");
         return;
     }
 
-    const hostName = app_get_host_name(urlInput);  // Ambil host name dari URL
-
-    // Jika host name ada, lanjutkan proses pemendekan
+    const hostName = app_get_host_name(urlInput);
+    
+    // Ensure that the URL has a valid hostname
     if (hostName) {
-        const shortened = await shortenUrl(urlInput);  // Panggil API untuk mendapatkan URL pendek
+        // Create the shortened URL using the Snacklink API
+        const encodedUrl = app_base64_encode(urlInput);
+        const apiUrl = `${go_url}shorten?api=${encodeURIComponent(api)}&url=${encodedUrl}&type=1`;
 
-        if (shortened) {
-            shortenedUrl.href = shortened;  // Masukkan URL pendek ke dalam anchor
-            shortenedUrl.textContent = shortened;  // Tampilkan URL pendek
-            resultDiv.classList.remove('hidden');  // Tampilkan hasil
-        }
+        // Set the result and show it
+        shortenedUrl.href = apiUrl;
+        shortenedUrl.textContent = apiUrl;
+        resultDiv.classList.remove('hidden');
     } else {
         alert("Invalid URL, please try again.");
     }
