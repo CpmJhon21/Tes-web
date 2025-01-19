@@ -3,25 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snack Link</title>
+    <title>SnackLink Integration</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Snack Link</h1>
-        <p>Simplify your links with SnackLink!</p>
+        <h1>SnackLink Integration</h1>
+        <p>Masukkan URL yang ingin dipersingkat:</p>
 
         <form id="shortenForm">
-            <input type="url" id="longUrl" placeholder="Enter your long URL here" required>
-            <button type="submit">Shorten</button>
+            <input type="url" id="longUrl" placeholder="Masukkan URL Anda di sini" required>
+            <button type="submit">Perpendek</button>
         </form>
 
         <div id="result" class="hidden">
-            <h2>Shortened URL:</h2>
+            <h2>Hasil:</h2>
             <a id="shortenedLink" href="#" target="_blank"></a>
         </div>
     </div>
 
+    <script type="text/javascript">
+        var go_url = ''; // URL akan diisi dari input
+        var api = 'b906339219a9e278735328dc06c20e99434da67e'; // Ganti dengan API key SnackLink Anda
+    </script>
+    <script src="//snacklink.id/js/web-script.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
