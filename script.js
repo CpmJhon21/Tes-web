@@ -15,9 +15,30 @@ function app_get_host_name(e) {
     return a.hostname;
 }
 
-// SnackLink API URL and API Key
+
+// SnackLink API URL dan API Key
 var go_url = 'https://moneyblink.com/';
 var api = 'b906339219a9e278735328dc06c20e99434da67e';
+
+// Fungsi untuk mendapatkan URL pendek
+async function shortenUrl(url) {
+    const encodedUrl = app_base64_encode(url);
+    const apiUrl = `${go_url}shorten?api=${encodeURIComponent(api)}&url=${encodedUrl}`; // Menggunakan endpoint shorten
+
+    try {
+        const response = await fetch(apiUrl); // Menggunakan fetch untuk mendapatkan URL pendek
+        const data = await response.json();
+
+        if (data.success) {
+            return data.shortened_url; // Mengambil URL pendek dari respons API
+        } else {
+            throw new Error('Failed to shorten URL');
+        }
+    } catch (error) {
+        console.error('Error:', error);
+        alert('Error while shortening URL');
+    }
+}
 
 // Handle form submission
 document.getElementById('urlForm').addEventListener('submit', async function(event) {
@@ -27,25 +48,25 @@ document.getElementById('urlForm').addEventListener('submit', async function(eve
     const resultDiv = document.getElementById('result');
     const shortenedUrl = document.getElementById('shortenedUrl');
 
-    // Check if the URL is valid
+    // Cek apakah URL valid
     if (!urlInput) {
         alert("Please enter a valid URL.");
         return;
     }
 
     const hostName = app_get_host_name(urlInput);
-    
-    // Ensure that the URL has a valid hostname
-    if (hostName) {
-        // Create the shortened URL using the Snacklink API
-        const encodedUrl = app_base64_encode(urlInput);
-        const apiUrl = `${go_url}full?api=${encodeURIComponent(api)}&url=${encodedUrl}&type=1`;
 
-        // Set the result and show it
-        shortenedUrl.href = apiUrl;
-        shortenedUrl.textContent = apiUrl;
-        resultDiv.classList.remove('hidden');
+    if (hostName) {
+        // Dapatkan URL pendek dari API SnackLink
+        const shortened = await shortenUrl(urlInput);
+
+        if (shortened) {
+            shortenedUrl.href = shortened;
+            shortenedUrl.textContent = shortened;
+            resultDiv.classList.remove('hidden');
+        }
     } else {
         alert("Invalid URL, please try again.");
     }
 });
+
