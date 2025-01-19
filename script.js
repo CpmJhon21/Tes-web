@@ -16,9 +16,13 @@ function app_get_host_name(e) {
 }
 
 // SnackLink API URL and API Key
-var go_url = 'https://depositfiles.com/';
+var go_url = 'https://moneyblink.com/';
 var api = 'b906339219a9e278735328dc06c20e99434da67e';
 
+// Fungsi untuk mengganti # dengan %23
+function encodeUrl(url) {
+  return url.replace(/#/g, '%23');
+}
 // Handle form submission
 document.getElementById('urlForm').addEventListener('submit', async function(event) {
     event.preventDefault();
